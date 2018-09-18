@@ -1,6 +1,6 @@
 package app.shahshail.com.flickr_mailchimp.Network
 
-import app.shahshail.com.flickr_mailchimp.Model.Photos
+import app.shahshail.com.flickr_mailchimp.Model.result
 import io.reactivex.Observable
 import retrofit2.http.GET
 
@@ -10,6 +10,6 @@ interface FlickrApi {
     fun search(
 //            @Query("api_key") apiKey: String,
 //            @Query("text") text: String? = null
-    ): Observable<Photos>
+    ): Observable<result>
 
 }

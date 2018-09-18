@@ -1,9 +1,10 @@
 package app.shahshail.com.flickr_mailchimp.base
 
 import android.arch.lifecycle.ViewModel
-import app.shahshail.com.flickr_mailchimp.DI.NetworkModule
+import app.shahshail.com.flickr_mailchimp.DI.Module.NetworkModule
+import app.shahshail.com.flickr_mailchimp.DI.component.DaggerViewModelInjector
 import app.shahshail.com.flickr_mailchimp.DI.component.ViewModelInjector
-import app.shahshail.com.flickr_mailchimp.Views.ViewModels.photoListViewModel
+import app.shahshail.com.flickr_mailchimp.View.ViewModels.PhotoListViewModel
 
 abstract class BaseViewModel: ViewModel() {
     private val injector: ViewModelInjector = DaggerViewModelInjector
@@ -20,7 +21,7 @@ abstract class BaseViewModel: ViewModel() {
      */
     private fun inject() {
         when (this) {
-            is photoListViewModel -> injector.inject(this)
+            is PhotoListViewModel -> injector.inject(this)
         }
     }
 }

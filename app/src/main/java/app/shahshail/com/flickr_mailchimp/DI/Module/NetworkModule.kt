@@ -1,4 +1,4 @@
-package app.shahshail.com.flickr_mailchimp.DI
+package app.shahshail.com.flickr_mailchimp.DI.Module
 
 import app.shahshail.com.flickr_mailchimp.Helper.BASE_API
 import app.shahshail.com.flickr_mailchimp.Network.FlickrApi

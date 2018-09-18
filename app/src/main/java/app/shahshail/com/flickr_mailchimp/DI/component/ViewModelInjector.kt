@@ -1,18 +1,15 @@
 package app.shahshail.com.flickr_mailchimp.DI.component
 
-import app.shahshail.com.flickr_mailchimp.DI.NetworkModule
-import app.shahshail.com.flickr_mailchimp.Views.ViewModels.photoListViewModel
+import app.shahshail.com.flickr_mailchimp.DI.Module.NetworkModule
+import app.shahshail.com.flickr_mailchimp.View.ViewModels.PhotoListViewModel
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [(NetworkModule::class)])
 interface ViewModelInjector {
-    /**
-     * Injects required dependencies into the specified PostListViewModel.
-     * @param postListViewModel PostListViewModel in which to inject the dependencies
-     */
-    fun inject(photoListViewModel: photoListViewModel)
+
+    fun inject(photoListViewModel: PhotoListViewModel)
 
     @Component.Builder
     interface Builder {
