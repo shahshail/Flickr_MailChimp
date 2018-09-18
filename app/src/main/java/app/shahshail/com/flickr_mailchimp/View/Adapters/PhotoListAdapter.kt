@@ -11,7 +11,7 @@ import app.shahshail.com.flickr_mailchimp.databinding.ItemPhotoBinding
 
 class PhotoListAdapter : RecyclerView.Adapter<PhotoListAdapter.ViewHolder>() {
 
-    private var photoList: List<Photo> ? = null
+    private lateinit var photoList: List<Photo>
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): PhotoListAdapter.ViewHolder{
       val binding: ItemPhotoBinding = DataBindingUtil.inflate(LayoutInflater.from(p0.context), R.layout.item_photo, p0, false)
@@ -22,8 +22,8 @@ class PhotoListAdapter : RecyclerView.Adapter<PhotoListAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
         //return if (photoList == null) 0 else photoList!!.size
-        return 10
-        TODO("Check how to deal with null and return num of item dynamic")
+        return if(::photoList.isInitialized) photoList.size else 0
+        TODO("Please Find Better solution to prevent Null pointer exception")
     }
 
 

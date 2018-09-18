@@ -3,8 +3,10 @@ package app.shahshail.com.flickr_mailchimp.View.ViewModels
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
 import android.view.View
+import app.shahshail.com.flickr_mailchimp.Model.result
 import app.shahshail.com.flickr_mailchimp.Network.FlickrApi
 import app.shahshail.com.flickr_mailchimp.R
+import app.shahshail.com.flickr_mailchimp.View.Adapters.PhotoListAdapter
 import app.shahshail.com.flickr_mailchimp.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -18,6 +20,7 @@ class PhotoListViewModel : BaseViewModel() {
     @Inject
     lateinit var flickrApi: FlickrApi
     private lateinit var disposable: Disposable
+    val photoListAdapter : PhotoListAdapter = PhotoListAdapter()
     val loadingVisibility : MutableLiveData<Int> = MutableLiveData()
     val errorHandleMessage : MutableLiveData<Int> = MutableLiveData()
 
@@ -37,7 +40,7 @@ class PhotoListViewModel : BaseViewModel() {
                         {data ->
                             run {
                                 Log.w(TAG, "Success ${data.toString()}")
-                               onRetrievePhotosSuccess()
+                               onRetrievePhotosSuccess(data)
                             }
                         },
                         {err -> run {
@@ -61,7 +64,9 @@ class PhotoListViewModel : BaseViewModel() {
         loadingVisibility.value = View.GONE
     }
 
-    private fun onRetrievePhotosSuccess(){
+    private fun onRetrievePhotosSuccess( result : result){
+        val photoList = result.photos.photo
+        photoListAdapter.updatePhoto(photoList)
 
     }
 

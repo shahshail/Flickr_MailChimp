@@ -35,7 +35,7 @@ class PhotoListActivity : AppCompatActivity() {
             }
         })
 
-        binding.flickrModel = flickrViewModel
+        binding.viewModel = flickrViewModel
 
     }
 
