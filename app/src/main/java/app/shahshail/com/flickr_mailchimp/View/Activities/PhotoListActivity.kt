@@ -23,6 +23,8 @@ class PhotoListActivity : AppCompatActivity() {
         binding.postList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         flickrViewModel = ViewModelProviders.of(this).get(PhotoListViewModel::class.java)
+
+        //Observe for error message
         flickrViewModel.errorHandleMessage.observe(this, Observer { message ->
             if(message != null){
                 snackBar = Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE)

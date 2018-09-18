@@ -5,6 +5,8 @@ import android.arch.lifecycle.Observer
 import android.databinding.BindingAdapter
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.ImageView
+import com.squareup.picasso.Picasso
 
 @BindingAdapter("mutableProgressBarVisibility")
 fun setMutableVisibility(view: View, visibility: MutableLiveData<Int>?) {
@@ -14,6 +16,10 @@ fun setMutableVisibility(view: View, visibility: MutableLiveData<Int>?) {
     }
 
 
-
+    @BindingAdapter("image")
+    fun setImage(imageView: ImageView, imageURL: String?){
+        if(imageURL != null && imageURL!!.isNotEmpty())
+            Picasso.get().load(imageURL).fit().centerCrop().into(imageView)
+    }
 
 }

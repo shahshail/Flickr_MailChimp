@@ -19,4 +19,5 @@ data class Photo(val id : String,
                  val title : String,
                  val ispublic : Int,
                  val isfriend : Int,
-                 val isfamily : Int)
+                 val isfamily : Int,
+                 val url_m : String)
