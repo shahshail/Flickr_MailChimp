@@ -37,9 +37,10 @@ class PhotoListViewModel : BaseViewModel() {
                 .doOnSubscribe { onRetrievePhotosStart() }
                 .doOnTerminate { onRetrievePhotosFinish() }
                 .subscribe(
+                        //TODO : -----Clean This code----
                         {data ->
                             run {
-                                Log.w(TAG, "Success ${data.toString()}")
+                                Log.w(TAG, "Success $data")
                                onRetrievePhotosSuccess(data)
                             }
                         },
@@ -49,9 +50,11 @@ class PhotoListViewModel : BaseViewModel() {
                         } })
     }
 
+
+    //TODO :Research OnClear Callback on ViewModel and find is it a good idea to clear disposable object when this method calls
     override fun onCleared() {
         super.onCleared()
-        TODO("Please clear disposable object when this method calls")
+
     }
 
 
@@ -64,6 +67,7 @@ class PhotoListViewModel : BaseViewModel() {
         loadingVisibility.value = View.GONE
     }
 
+    //TODO : Research on is it good idea to call Adapter here or it requires cleanup
     private fun onRetrievePhotosSuccess( result : result){
         val photoList = result.photos.photo
         photoListAdapter.updatePhoto(photoList)
