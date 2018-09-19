@@ -6,7 +6,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.widget.Toast
 import app.shahshail.com.flickr_mailchimp.R
 import app.shahshail.com.flickr_mailchimp.View.ViewModels.PhotoListViewModel
@@ -25,7 +25,7 @@ class PhotoListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_photo_list)
-        binding.photoList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.photoList.layoutManager = GridLayoutManager(this, 2)
 
         binding.toolbar.inflateMenu(R.menu.search_photos)
         binding.searchView.setMenuItem(binding.toolbar.menu.findItem(R.id.search))
