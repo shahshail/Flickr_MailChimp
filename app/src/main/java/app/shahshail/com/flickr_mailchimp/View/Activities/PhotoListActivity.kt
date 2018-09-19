@@ -33,12 +33,13 @@ class PhotoListActivity : AppCompatActivity() {
         binding.searchView.setMenuItem(binding.toolbar.menu.findItem(R.id.search))
         binding.searchView.setVoiceSearch(false)
         binding.searchView.setEllipsize(true)
+
         binding.searchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean{
-                if (validateString(query)) {
-                    flickrViewModel.loadFlickrPhotos(query!!)
-                    binding.searchView.closeSearch()
-                }
+                if(checkForConnection()){
+                    if (validateString(query))flickrViewModel.loadFlickrPhotos(query!!)
+                }else Toast.makeText(binding.root.context,"No Connection Available!! Please try again later.",Toast.LENGTH_LONG).show()
+                binding.searchView.closeSearch()
                 return true
             }
             override fun onQueryTextChange(newText: String?): Boolean = false
@@ -84,4 +85,6 @@ class PhotoListActivity : AppCompatActivity() {
         val scalingFactor = 180
         return (dpWidth / scalingFactor).toInt()
     }
+
+
 }

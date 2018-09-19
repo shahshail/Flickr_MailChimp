@@ -29,9 +29,10 @@ class PhotoListViewModel : BaseViewModel() {
     //TODO : Research - Should we use ViewModel Factory method or this should be fine
     val errorHandlerOnClick = View.OnClickListener {loadFlickrPhotos(title.value.toString())} // Now ,Observe the value of error message in our activity
 
-//    init {
-//        loadFlickrPhotos("MailChimp")
-//    }
+    init {
+       // loadFlickrPhotos("MailChimp")
+        title.value = "Flickr_MailChimp"
+    }
 
     fun loadFlickrPhotos(sstring:String){
         title.value = sstring

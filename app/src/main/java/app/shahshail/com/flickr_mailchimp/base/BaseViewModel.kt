@@ -7,8 +7,9 @@ import app.shahshail.com.flickr_mailchimp.DI.component.ViewModelInjector
 import app.shahshail.com.flickr_mailchimp.View.ViewModels.PhotoListViewModel
 
 abstract class BaseViewModel: ViewModel() {
-    private val injector: ViewModelInjector = DaggerViewModelInjector
-            .builder()
+//    private val injector: ViewModelInjector = DaggerViewModelInjector.
+
+    private val injector: ViewModelInjector = DaggerViewModelInjector.builder()
             .networkModule(NetworkModule)
             .build()
 
