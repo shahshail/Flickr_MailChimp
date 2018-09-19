@@ -15,7 +15,7 @@ fun setAdapter(view: RecyclerView, adapter: RecyclerView.Adapter<*>) {
     view.adapter = adapter
 }
 
-@BindingAdapter("mutableVisibility")
+@BindingAdapter("mutableProgressBarVisibility")
 fun setMutableVisibility(view: View, visibility: MutableLiveData<Int>?) {
     val parentActivity: AppCompatActivity? = view.getParentActivity()
     if(parentActivity != null && visibility != null) {

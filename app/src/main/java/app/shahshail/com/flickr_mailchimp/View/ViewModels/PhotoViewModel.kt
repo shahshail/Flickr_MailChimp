@@ -14,7 +14,6 @@ class PhotoViewModel : BaseViewModel() {
     fun bindData(photo: Photo){
         photoTitle.value = photo.title
         imageURL.value = photo.url_m
-       // noOfPhotos.value =
     }
 
     fun getPhotoTitle() : MutableLiveData<String>{

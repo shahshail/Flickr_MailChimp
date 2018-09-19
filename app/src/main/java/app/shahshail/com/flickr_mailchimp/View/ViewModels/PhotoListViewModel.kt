@@ -3,6 +3,7 @@ package app.shahshail.com.flickr_mailchimp.View.ViewModels
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
 import android.view.View
+import app.shahshail.com.flickr_mailchimp.Helper.API_KEY
 import app.shahshail.com.flickr_mailchimp.Model.result
 import app.shahshail.com.flickr_mailchimp.Network.FlickrApi
 import app.shahshail.com.flickr_mailchimp.R
@@ -23,23 +24,25 @@ class PhotoListViewModel : BaseViewModel() {
     val photoListAdapter : PhotoListAdapter = PhotoListAdapter()
     val loadingVisibility : MutableLiveData<Int> = MutableLiveData()
     val errorHandleMessage : MutableLiveData<Int> = MutableLiveData()
+    //TODO : Research - Should we use ViewModel Factory method or this should be fine
+    private var searchString = ""
+    val errorHandlerOnClick = View.OnClickListener {loadFlickrPhotos(searchString)} // Now ,Observe the value of error message in our activity
 
-    val errorHandlerOnClick = View.OnClickListener {loadFlickrPhotos()} // Now ,Observe the value of error message in our activity
+//    init {
+//        loadFlickrPhotos()
+//    }
 
-    init {
-        loadFlickrPhotos()
-    }
-
-    private fun loadFlickrPhotos(){
-        disposable = flickrApi.search()
+    fun loadFlickrPhotos(sstring:String){
+        disposable = flickrApi.search(API_KEY,sstring)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { onRetrievePhotosStart() }
                 .doOnTerminate { onRetrievePhotosFinish() }
                 .subscribe(
+                        //TODO : -----Clean This code----
                         {data ->
                             run {
-                                Log.w(TAG, "Success ${data.toString()}")
+                                Log.w(TAG, "Success $data")
                                onRetrievePhotosSuccess(data)
                             }
                         },
@@ -49,9 +52,11 @@ class PhotoListViewModel : BaseViewModel() {
                         } })
     }
 
+
+    //TODO :Research OnClear Callback on ViewModel and find is it a good idea to clear disposable object when this method calls
     override fun onCleared() {
         super.onCleared()
-        TODO("Please clear disposable object when this method calls")
+        disposable.dispose()
     }
 
 
@@ -64,6 +69,7 @@ class PhotoListViewModel : BaseViewModel() {
         loadingVisibility.value = View.GONE
     }
 
+    //TODO : Research on is it good idea to call Adapter here or it requires cleanup
     private fun onRetrievePhotosSuccess( result : result){
         val photoList = result.photos.photo
         photoListAdapter.updatePhoto(photoList)
@@ -74,4 +80,7 @@ class PhotoListViewModel : BaseViewModel() {
         errorHandleMessage.value = R.string.error_handler
     }
 
+    fun setSearchString(searchString: String){
+        this.searchString = searchString
+    }
 }
