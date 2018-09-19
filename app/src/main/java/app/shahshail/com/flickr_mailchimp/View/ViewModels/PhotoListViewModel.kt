@@ -76,9 +76,7 @@ class PhotoListViewModel : BaseViewModel() {
     private fun onRetrievePhotosSuccess( result : result){
         val photoList = result.photos.photo
         photoListAdapter.updatePhoto(photoList)
-        if(photoList.isEmpty()){
-            onResultEmpty()
-        }
+        if(photoList.isEmpty()) onResultEmpty() else noResultFoundMessage.value = null
     }
 
     private fun onRetrievePhotosError(){

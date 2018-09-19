@@ -49,7 +49,7 @@ class PhotoListActivity : AppCompatActivity() {
 
         //Observe noResultFound Message
         flickrViewModel.noResultFoundMessage.observe(this, Observer { message ->
-            if(message != null) Toast.makeText(binding.root.context,message,Toast.LENGTH_SHORT).show()
+            if(message != null) Toast.makeText(applicationContext,message,Toast.LENGTH_SHORT).show()
         })
 
         //Observe for error message
