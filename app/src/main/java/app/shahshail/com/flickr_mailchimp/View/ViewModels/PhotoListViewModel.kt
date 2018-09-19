@@ -24,7 +24,7 @@ class PhotoListViewModel : BaseViewModel() {
     val photoListAdapter : PhotoListAdapter = PhotoListAdapter()
     val loadingVisibility : MutableLiveData<Int> = MutableLiveData()
     val errorHandleMessage : MutableLiveData<Int> = MutableLiveData()
-    val noResultFoundMessage : MutableLiveData<String> = MutableLiveData()
+    val noResultFoundMessage : MutableLiveData<Int> = MutableLiveData()
     val title : MutableLiveData<String> = MutableLiveData()
     //TODO : Research - Should we use ViewModel Factory method or this should be fine
     val errorHandlerOnClick = View.OnClickListener {loadFlickrPhotos(title.value.toString())} // Now ,Observe the value of error message in our activity
@@ -77,7 +77,6 @@ class PhotoListViewModel : BaseViewModel() {
         photoListAdapter.updatePhoto(photoList)
         if(photoList.isEmpty()){
             onResultEmpty()
-            photoListAdapter.notifyDataSetChanged()
         }
     }
 
@@ -86,6 +85,6 @@ class PhotoListViewModel : BaseViewModel() {
     }
 
     private fun onResultEmpty(){
-        noResultFoundMessage.value = "No result found for ${title.value}!!"
+        noResultFoundMessage.value = R.string.no_result_found
     }
 }

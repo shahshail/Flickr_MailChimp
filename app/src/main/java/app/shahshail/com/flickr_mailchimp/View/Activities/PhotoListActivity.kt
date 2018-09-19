@@ -17,7 +17,6 @@ import app.shahshail.com.flickr_mailchimp.databinding.ActivityPhotoListBinding
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 
 
-
 class PhotoListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPhotoListBinding
     private lateinit var flickrViewModel: PhotoListViewModel
@@ -28,7 +27,7 @@ class PhotoListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_photo_list)
-        binding.photoList.layoutManager = GridLayoutManager(this, 2)
+        binding.photoList.layoutManager = GridLayoutManager(this, calculateNoOfColumns(binding.root.context))
 
         binding.toolbar.inflateMenu(R.menu.search_photos)
         binding.searchView.setMenuItem(binding.toolbar.menu.findItem(R.id.search))
@@ -44,7 +43,6 @@ class PhotoListActivity : AppCompatActivity() {
             }
             override fun onQueryTextChange(newText: String?): Boolean = false
         })
-
 
         flickrViewModel = ViewModelProviders.of(this).get(PhotoListViewModel::class.java)
 
@@ -63,24 +61,27 @@ class PhotoListActivity : AppCompatActivity() {
         })
 
         flickrViewModel.title.observe(this, Observer { title -> if(title != null) binding.toolbar.title = title })
-
         binding.viewModel = flickrViewModel
-
     }
 
     fun validateString(string: String?): Boolean{
         if (string == ""){
-            Toast.makeText(binding.root.context,"Please Enter a Valid Text!!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(binding.root.context,"Please Enter a Valid Text!!", Toast.LENGTH_LONG).show()
             return false
         }
         return true
     }
 
-
-    fun checkForConnection() : Boolean{
+   private fun checkForConnection() : Boolean{
         val cm = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
         return activeNetwork?.isConnectedOrConnecting == true
     }
 
+    private fun calculateNoOfColumns(context: Context): Int {
+        val displayMetrics = context.resources.displayMetrics
+        val dpWidth = displayMetrics.widthPixels / displayMetrics.density
+        val scalingFactor = 180
+        return (dpWidth / scalingFactor).toInt()
+    }
 }
