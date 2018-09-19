@@ -13,6 +13,8 @@ import app.shahshail.com.flickr_mailchimp.View.ViewModels.PhotoListViewModel
 import app.shahshail.com.flickr_mailchimp.databinding.ActivityPhotoListBinding
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 
+
+
 class PhotoListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPhotoListBinding
     private lateinit var flickrViewModel: PhotoListViewModel
@@ -34,7 +36,7 @@ class PhotoListActivity : AppCompatActivity() {
                 if (validateString(query)) {
                     flickrViewModel.loadFlickrPhotos(query!!)
                     flickrViewModel.setSearchString(query)
-
+                    binding.searchView.closeSearch()
                 }
                 return true
             }

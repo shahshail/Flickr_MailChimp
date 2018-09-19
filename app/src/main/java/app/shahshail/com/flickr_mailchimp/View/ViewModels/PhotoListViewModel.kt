@@ -3,6 +3,7 @@ package app.shahshail.com.flickr_mailchimp.View.ViewModels
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
 import android.view.View
+import app.shahshail.com.flickr_mailchimp.Helper.API_KEY
 import app.shahshail.com.flickr_mailchimp.Model.result
 import app.shahshail.com.flickr_mailchimp.Network.FlickrApi
 import app.shahshail.com.flickr_mailchimp.R
@@ -32,7 +33,7 @@ class PhotoListViewModel : BaseViewModel() {
 //    }
 
     fun loadFlickrPhotos(sstring:String){
-        disposable = flickrApi.search()
+        disposable = flickrApi.search(API_KEY,sstring)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { onRetrievePhotosStart() }

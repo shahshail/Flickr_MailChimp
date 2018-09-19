@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso
 
 @BindingAdapter("adapter")
 fun setAdapter(view: RecyclerView, adapter: RecyclerView.Adapter<*>) {
-    view.layoutManager = GridLayoutManager(view.context,3)
+    view.layoutManager = GridLayoutManager(view.context,2)
     view.adapter = adapter
 }
 
