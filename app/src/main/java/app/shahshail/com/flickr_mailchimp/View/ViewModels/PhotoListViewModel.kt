@@ -23,14 +23,15 @@ class PhotoListViewModel : BaseViewModel() {
     val photoListAdapter : PhotoListAdapter = PhotoListAdapter()
     val loadingVisibility : MutableLiveData<Int> = MutableLiveData()
     val errorHandleMessage : MutableLiveData<Int> = MutableLiveData()
+    //TODO : Research - Should we use ViewModel Factory method or this should be fine
+    private var searchString = ""
+    val errorHandlerOnClick = View.OnClickListener {loadFlickrPhotos(searchString)} // Now ,Observe the value of error message in our activity
 
-    val errorHandlerOnClick = View.OnClickListener {loadFlickrPhotos()} // Now ,Observe the value of error message in our activity
+//    init {
+//        loadFlickrPhotos()
+//    }
 
-    init {
-        loadFlickrPhotos()
-    }
-
-    private fun loadFlickrPhotos(){
+    fun loadFlickrPhotos(sstring:String){
         disposable = flickrApi.search()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -54,7 +55,7 @@ class PhotoListViewModel : BaseViewModel() {
     //TODO :Research OnClear Callback on ViewModel and find is it a good idea to clear disposable object when this method calls
     override fun onCleared() {
         super.onCleared()
-
+        disposable.dispose()
     }
 
 
@@ -78,4 +79,7 @@ class PhotoListViewModel : BaseViewModel() {
         errorHandleMessage.value = R.string.error_handler
     }
 
+    fun setSearchString(searchString: String){
+        this.searchString = searchString
+    }
 }

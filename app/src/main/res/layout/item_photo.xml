@@ -24,7 +24,6 @@
                 android:id="@+id/iv_clip_board"
                 android:layout_width="match_parent"
                 android:layout_height="195dp"
-                android:src="@mipmap/ic_launcher"
                 app:image = "@{viewModel.getPhotoImageURL()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
