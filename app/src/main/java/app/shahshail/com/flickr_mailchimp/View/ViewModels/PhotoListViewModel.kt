@@ -24,15 +24,17 @@ class PhotoListViewModel : BaseViewModel() {
     val photoListAdapter : PhotoListAdapter = PhotoListAdapter()
     val loadingVisibility : MutableLiveData<Int> = MutableLiveData()
     val errorHandleMessage : MutableLiveData<Int> = MutableLiveData()
+    val noResultFoundMessage : MutableLiveData<Int> = MutableLiveData()
+    val title : MutableLiveData<String> = MutableLiveData()
     //TODO : Research - Should we use ViewModel Factory method or this should be fine
-    private var searchString = ""
-    val errorHandlerOnClick = View.OnClickListener {loadFlickrPhotos(searchString)} // Now ,Observe the value of error message in our activity
+    val errorHandlerOnClick = View.OnClickListener {loadFlickrPhotos(title.value.toString())} // Now ,Observe the value of error message in our activity
 
 //    init {
-//        loadFlickrPhotos()
+//        loadFlickrPhotos("MailChimp")
 //    }
 
     fun loadFlickrPhotos(sstring:String){
+        title.value = sstring
         disposable = flickrApi.search(API_KEY,sstring)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -73,14 +75,16 @@ class PhotoListViewModel : BaseViewModel() {
     private fun onRetrievePhotosSuccess( result : result){
         val photoList = result.photos.photo
         photoListAdapter.updatePhoto(photoList)
-
+        if(photoList.isEmpty()){
+            onResultEmpty()
+        }
     }
 
     private fun onRetrievePhotosError(){
         errorHandleMessage.value = R.string.error_handler
     }
 
-    fun setSearchString(searchString: String){
-        this.searchString = searchString
+    private fun onResultEmpty(){
+        noResultFoundMessage.value = R.string.no_result_found
     }
 }
