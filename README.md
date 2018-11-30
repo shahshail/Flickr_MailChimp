@@ -1,4 +1,4 @@
-# Flickr_MailChimp
+# Flickr_App
 
 ## Screenshots
 
